@@ -5,7 +5,7 @@
 # (C) 2016,  Andreas Jung, www.zopyx.com, Tuebingen, Germany
 ################################################################
 
-
+import furl
 import datetime 
 
 from twython import Twython
@@ -21,28 +21,15 @@ from xmldirector.facebook.interfaces import IFacebookSettings
 from xmldirector.facebook.i18n import MessageFactory as _
 
 
-TWITTER_TOKEN = 'xmldirector.facebook.token'
-TWITTER_TOKEN_SECRET = 'xmldirector.facebook.token_secret'
-TWITTER_DATA = 'xmldirector.facebook.data'
-TWITTER_DATA_LAST_UPDATED = 'xmldirector.facebook.last_updated'
+FB_ACCESS_TOKEN = 'xmldirector.facebook.token'
 
 
 class FacebookAuthentication(BrowserView):
 
-    def authorize(self, oauth_token):
-
+    def authorize(self):
+        """ Authorize Facebook access """
         annotation = IAnnotations(self.context)
-        settings = self.facebook_settings
-
-        oauth_verifier = self.request['oauth_verifier']
-        facebook = Twython(
-                settings.facebook_app_key, 
-                settings.facebook_app_secret,
-                annotation[TWITTER_TOKEN],
-                annotation[TWITTER_TOKEN_SECRET])
-        final_step = facebook.get_authorized_tokens(oauth_verifier)
-        annotation[TWITTER_TOKEN] = final_step['oauth_token']
-        annotation[TWITTER_TOKEN_SECRET] = final_step['oauth_token_secret']
+        annotation[FB_ACCESS_TOKEN] = self.request['#access_token']
         self.context.plone_utils.addPortalMessage(_(u'Facebook access authorized'))
         self.request.response.redirect(self.context.absolute_url() + '/authorize-facebook')
 
@@ -94,20 +81,23 @@ class FacebookAuthentication(BrowserView):
 
     def get_oauth_token(self):
         annotation = IAnnotations(self.context)
-        return annotation.get(TWITTER_TOKEN)
+        return annotation.get(FB_ACCESS_TOKEN)
 
     def get_oauth_url(self):
 
         settings = self.facebook_settings
-        facebook = Twython(settings.facebook_app_key, settings.facebook_app_secret)
-        callback_url = self.context.absolute_url() + '/authorize-facebook-action'
-        auth = facebook.get_authentication_tokens(callback_url=callback_url)
-        oauth_token = auth['oauth_token']
-        oauth_token_secret = auth['oauth_token_secret']
-        annotation = IAnnotations(self.context)
-        annotation[TWITTER_TOKEN] = oauth_token
-        annotation[TWITTER_TOKEN_SECRET] = oauth_token_secret
-        return auth['auth_url']
+        redirect_uri = '{}/authorize-facebook-action'.format(self.context.absolute_url())
+        fb_url = 'https://graph.facebook.com/oauth/authorize'
+        data = dict(
+           type='user_agent',
+           client_id=settings.facebook_app_key,
+           redirect_uri=redirect_uri,
+           scope='publish_pages,email',
+           response_type='token'
+        )
+        f = furl.furl(fb_url)
+        f.args = data
+        return str(f)
 
     def post_to_facebook(self, text):
 

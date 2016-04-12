@@ -29,6 +29,7 @@ setup(name='xmldirector.facebook',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'furl'
       ],
       tests_require=['zope.testing'],
       entry_points="""

@@ -11,13 +11,18 @@
     <metal:content-core define-macro="content-core"
         tal:define="token view/get_oauth_token">
 
+        <a 
+            tal:attributes="href view/get_oauth_url" 
+            i18n:translate="">Authorize Facebook access</a>
+
+
         <style type="text/css">
             .label {
                 width: 100px;
                 text-align: right;
             }
         </style>
-        
+        <!--
         <h2 i18n:translate="">Facebook Authentication/Authorization</h2>
         <div tal:condition="not: token" i18n:translate="" class="info">
             Your application is not authorized for Facebook access.
@@ -78,7 +83,7 @@
                 </tal:if>
             </div>
         </tal:def>
-            
+        -->            
   </metal:content-core>
 </metal:main>
 
