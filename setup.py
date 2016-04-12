@@ -29,7 +29,6 @@ setup(name='xmldirector.facebook',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'Twython'
       ],
       tests_require=['zope.testing'],
       entry_points="""
