@@ -93,10 +93,12 @@ class FacebookAuthentication(BrowserView):
            client_id=settings.facebook_app_key,
            redirect_uri=redirect_uri,
            scope='publish_pages,email',
-           response_type='token'
+           response_type='code token',
+           code='abc'
         )
         f = furl.furl(fb_url)
         f.args = data
+        print str(f)
         return str(f)
 
     def post_to_facebook(self, text):
