@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# xmldirector.twitter documentation build configuration file, created by
+# xmldirector.facebook documentation build configuration file, created by
 # sphinx-quickstart on Fri Dec 18 10:37:01 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -50,7 +50,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'xmldirector.twitter'
+project = u'xmldirector.facebook'
 copyright = u'2015, Andreas Jung'
 author = u'Andreas Jung'
 
@@ -228,7 +228,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'xmldirectorcrex.tex', u'xmldirector.twitter Documentation',
+  (master_doc, 'xmldirectorcrex.tex', u'xmldirector.facebook Documentation',
    u'Andreas Jung', 'manual'),
 ]
 
@@ -258,7 +258,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'xmldirectorcrex', u'xmldirector.twitter Documentation',
+    (master_doc, 'xmldirectorcrex', u'xmldirector.facebook Documentation',
      [author], 1)
 ]
 
@@ -272,7 +272,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'xmldirectorcrex', u'xmldirector.twitter Documentation',
+  (master_doc, 'xmldirectorcrex', u'xmldirector.facebook Documentation',
    author, 'xmldirectorcrex', 'One line description of project.',
    'Miscellaneous'),
 ]

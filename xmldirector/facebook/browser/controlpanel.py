@@ -2,28 +2,28 @@
 
 
 ################################################################
-# xmldirector.twitter
+# xmldirector.facebook
 # (C) 2016,  Andreas Jung, www.zopyx.com, Tuebingen, Germany
 ################################################################
 
 from plone.app.registry.browser import controlpanel
 
-from xmldirector.twitter.interfaces import ITwitterSettings
-from xmldirector.twitter.i18n import MessageFactory as _
+from xmldirector.facebook.interfaces import IFacebookSettings
+from xmldirector.facebook.i18n import MessageFactory as _
 
 
-class TwitterSettingsEditForm(controlpanel.RegistryEditForm):
+class FacebookSettingsEditForm(controlpanel.RegistryEditForm):
 
-    schema = ITwitterSettings
-    label = _(u'Twitter Policy settings')
+    schema = IFacebookSettings
+    label = _(u'Facebook Policy settings')
     description = _(u'')
 
     def updateFields(self):
-        super(TwitterSettingsEditForm, self).updateFields()
+        super(FacebookSettingsEditForm, self).updateFields()
 
     def updateWidgets(self):
-        super(TwitterSettingsEditForm, self).updateWidgets()
+        super(FacebookSettingsEditForm, self).updateWidgets()
 
 
-class TwitterSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
-    form = TwitterSettingsEditForm
+class FacebookSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
+    form = FacebookSettingsEditForm

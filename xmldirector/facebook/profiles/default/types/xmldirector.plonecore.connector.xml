@@ -4,8 +4,8 @@
    i18n:domain="xmldirector.plonecore" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
   <!-- Actions -->
-  <action title="Twitter" action_id="twitter" category="object" condition_expr=""
-    url_expr="string:${object_url}/authorize-twitter" visible="True">
+  <action title="Facebook" action_id="facebook" category="object" condition_expr=""
+    url_expr="string:${object_url}/authorize-facebook" visible="True">
     <permission value="Modify portal content" />
   </action>
 </object>

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
 ################################################################
-# xmldirector.twitter
+# xmldirector.facebook
 # (C) 2016,  Andreas Jung, www.zopyx.com, Tuebingen, Germany
 ################################################################
 
 
 from unittest import TestCase
 
-from xmldirector.twitter.browser.rewriterules import RuleRewriter
+from xmldirector.facebook.browser.rewriterules import RuleRewriter
 
 
 rules = [

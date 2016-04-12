@@ -3,9 +3,9 @@ from setuptools import setup, find_packages
 
 version = '0.1.4'
 
-setup(name='xmldirector.twitter',
+setup(name='xmldirector.facebook',
       version=version,
-      description="Plone/XML-Director integration withTwitter",
+      description="Plone/XML-Director integration withFacebook",
       long_description=open(os.path.join("docs", "source", "README.rst")).read() + "\n" +
       open(os.path.join("docs", "source", "HISTORY.rst")).read(),
       # Get more strings from
@@ -18,10 +18,10 @@ setup(name='xmldirector.twitter',
           "Framework :: Zope2",
           "Topic :: Software Development :: Libraries :: Python Modules",
       ],
-      keywords='xml-director twitter XML Plone Python ',
+      keywords='xml-director facebook XML Plone Python ',
       author='Andreas Jung',
       author_email='info@zopyx.com',
-      url='http://pypi.python.org/pypi/xmldirector.twitter',
+      url='http://pypi.python.org/pypi/xmldirector.facebook',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['xmldirector'],

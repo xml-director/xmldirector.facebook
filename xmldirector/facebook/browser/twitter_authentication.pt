@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="xmldirector.twitter">
+      i18n:domain="xmldirector.facebook">
 <body>
 
 <metal:main fill-slot="content-core">
@@ -18,24 +18,24 @@
             }
         </style>
         
-        <h2 i18n:translate="">Twitter Authentication/Authorization</h2>
+        <h2 i18n:translate="">Facebook Authentication/Authorization</h2>
         <div tal:condition="not: token" i18n:translate="" class="info">
-            Your application is not authorized for Twitter access.
+            Your application is not authorized for Facebook access.
         </div>
         <a tal:condition="not: token" 
             tal:attributes="href view/get_oauth_url" 
-            i18n:translate="">Authorize Twitter access</a>
+            i18n:translate="">Authorize Facebook access</a>
 
         <div tal:condition="token" i18n:translate="" class="info">
-            Your application is authorized for Twitter access.
+            Your application is authorized for Facebook access.
         </div>
         <a tal:condition="token" 
-            tal:attributes="href string:${context/absolute_url}/deauthorize-twitter" 
-            i18n:translate="">Deauthorize Twitter access</a>
+            tal:attributes="href string:${context/absolute_url}/deauthorize-facebook" 
+            i18n:translate="">Deauthorize Facebook access</a>
 
-        <tal:def tal:define="info view/twitter_info">
-            <div id="twitter-info" tal:condition="token" style="margin-top: 1em">
-                <h2 i18n:translate="">Twitter account information</h2>
+        <tal:def tal:define="info view/facebook_info">
+            <div id="facebook-info" tal:condition="token" style="margin-top: 1em">
+                <h2 i18n:translate="">Facebook account information</h2>
                 <tal:if condition="info">
                     <div>
                         <span class="label" i18n:translate="">Screen name</span>:
@@ -67,13 +67,13 @@
                     </div>
                     <img tal:attributes="src info/profile_image_url_https"/>
 
-                    <form method="post" tal:attributes="action string:${context/absolute_url}/twitter-post" style="margin-top: 1em">
+                    <form method="post" tal:attributes="action string:${context/absolute_url}/facebook-post" style="margin-top: 1em">
                         <textarea 
                             name="text" 
                             rows="3" 
                             cols="60" 
                             tal:content="request/form/text | string:${context/Title} - ${context/absolute_url}"></textarea>
-                        <input type="submit" i18n:attributes="value" value="Post to Twitter"/>
+                        <input type="submit" i18n:attributes="value" value="Post to Facebook"/>
                     </form>
                 </tal:if>
             </div>

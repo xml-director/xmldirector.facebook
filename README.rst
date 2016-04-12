@@ -1,7 +1,7 @@
-xmldirector.twitter
+xmldirector.facebook
 ===================
 
-Integration of XML-Director with Twitter
+Integration of XML-Director with Facebook
 
 - www.xml-director.info
 
@@ -9,4 +9,4 @@ Integration of XML-Director with Twitter
 Documentation
 -------------
 
-- https://pythonhosted.org/xmldirector.twitter/
+- https://pythonhosted.org/xmldirector.facebook/

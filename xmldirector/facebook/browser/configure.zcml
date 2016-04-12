@@ -9,42 +9,42 @@
     >
 
     <browser:page
-        name="xmldirector-twitter-settings"
+        name="xmldirector-facebook-settings"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-        class=".controlpanel.TwitterSettingsControlPanel"
+        class=".controlpanel.FacebookSettingsControlPanel"
         permission="cmf.ManagePortal"
     />
 
     <browser:page
-        name="authorize-twitter"
+        name="authorize-facebook"
         for="xmldirector.plonecore.connector.IConnector"
         permission="cmf.ModifyPortalContent"
-        class=".twitter_authentication.TwitterAuthentication"
-        template="twitter_authentication.pt"
+        class=".facebook_authentication.FacebookAuthentication"
+        template="facebook_authentication.pt"
         />
 
     <browser:page
-        name="deauthorize-twitter"
+        name="deauthorize-facebook"
         for="xmldirector.plonecore.connector.IConnector"
         permission="cmf.ModifyPortalContent"
-        class=".twitter_authentication.TwitterAuthentication"
+        class=".facebook_authentication.FacebookAuthentication"
         attribute="deauthorize"
         />                                              i
 
     <browser:page
-        name="authorize-twitter-action"
+        name="authorize-facebook-action"
         for="xmldirector.plonecore.connector.IConnector"
         permission="cmf.ModifyPortalContent"
-        class=".twitter_authentication.TwitterAuthentication"
+        class=".facebook_authentication.FacebookAuthentication"
         attribute="authorize"
         />                                              i
 
     <browser:page
-        name="twitter-post"
+        name="facebook-post"
         for="xmldirector.plonecore.connector.IConnector"
         permission="cmf.ModifyPortalContent"
-        class=".twitter_authentication.TwitterAuthentication"
-        attribute="post_to_twitter"
+        class=".facebook_authentication.FacebookAuthentication"
+        attribute="post_to_facebook"
         />                                              i
 
 </configure>

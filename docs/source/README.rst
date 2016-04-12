@@ -1,10 +1,10 @@
-xmldirector.twitter
+xmldirector.facebook
 ===================
 
 Integration of 
 
 - Plone (https://www.plone.org)
-- Twitter
+- Facebook
 
 Requirements
 ------------
@@ -19,17 +19,17 @@ Requirements
 Usage
 -----
 
-First you need to register your own App as Twitter developer.
-on https://apps.twitter.com/. Your application must be configured
-for full twitter access. The application key and application secret
+First you need to register your own App as Facebook developer.
+on https://apps.facebook.com/. Your application must be configured
+for full facebook access. The application key and application secret
 must be configured globally inside your Plone site setup -> XML Director
-Twitter setting.
+Facebook setting.
 
-A ``Connector`` instance must be authorized with Twitter (see ``Twitter``
+A ``Connector`` instance must be authorized with Facebook (see ``Facebook``
 tab/action).
 
-The connection URL for a ``Connector`` connected to Twitter must be
-``twitter://twitter.com/``.
+The connection URL for a ``Connector`` connected to Facebook must be
+``facebook://facebook.com/``.
 
 
 License
@@ -38,11 +38,11 @@ This package is published under the GNU Public License V2 (GPL 2)
 
 Source code
 -----------
-See https://github.com/xml-director/xmldirector.twitter
+See https://github.com/xml-director/xmldirector.facebook
 
 Bugtracker
 ----------
-See https://github.com/xml-director/xmldirector.twitter/issues
+See https://github.com/xml-director/xmldirector.facebook/issues
 
 
 Author

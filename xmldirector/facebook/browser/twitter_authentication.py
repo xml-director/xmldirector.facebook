@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################
-# xmldirector.twitter
+# xmldirector.facebook
 # (C) 2016,  Andreas Jung, www.zopyx.com, Tuebingen, Germany
 ################################################################
 
@@ -17,48 +17,48 @@ from Products.Five.browser import BrowserView
 from plone.registry.interfaces import IRegistry
 from zope.annotation import IAnnotations
 
-from xmldirector.twitter.interfaces import ITwitterSettings
-from xmldirector.twitter.i18n import MessageFactory as _
+from xmldirector.facebook.interfaces import IFacebookSettings
+from xmldirector.facebook.i18n import MessageFactory as _
 
 
-TWITTER_TOKEN = 'xmldirector.twitter.token'
-TWITTER_TOKEN_SECRET = 'xmldirector.twitter.token_secret'
-TWITTER_DATA = 'xmldirector.twitter.data'
-TWITTER_DATA_LAST_UPDATED = 'xmldirector.twitter.last_updated'
+TWITTER_TOKEN = 'xmldirector.facebook.token'
+TWITTER_TOKEN_SECRET = 'xmldirector.facebook.token_secret'
+TWITTER_DATA = 'xmldirector.facebook.data'
+TWITTER_DATA_LAST_UPDATED = 'xmldirector.facebook.last_updated'
 
 
-class TwitterAuthentication(BrowserView):
+class FacebookAuthentication(BrowserView):
 
     def authorize(self, oauth_token):
 
         annotation = IAnnotations(self.context)
-        settings = self.twitter_settings
+        settings = self.facebook_settings
 
         oauth_verifier = self.request['oauth_verifier']
-        twitter = Twython(
-                settings.twitter_app_key, 
-                settings.twitter_app_secret,
+        facebook = Twython(
+                settings.facebook_app_key, 
+                settings.facebook_app_secret,
                 annotation[TWITTER_TOKEN],
                 annotation[TWITTER_TOKEN_SECRET])
-        final_step = twitter.get_authorized_tokens(oauth_verifier)
+        final_step = facebook.get_authorized_tokens(oauth_verifier)
         annotation[TWITTER_TOKEN] = final_step['oauth_token']
         annotation[TWITTER_TOKEN_SECRET] = final_step['oauth_token_secret']
-        self.context.plone_utils.addPortalMessage(_(u'Twitter access authorized'))
-        self.request.response.redirect(self.context.absolute_url() + '/authorize-twitter')
+        self.context.plone_utils.addPortalMessage(_(u'Facebook access authorized'))
+        self.request.response.redirect(self.context.absolute_url() + '/authorize-facebook')
 
     def deauthorize(self):
-        """ Deauthorize Twitter access """
+        """ Deauthorize Facebook access """
         annotation = IAnnotations(self.context)
         for key in (TWITTER_TOKEN, TWITTER_TOKEN_SECRET, TWITTER_DATA, TWITTER_DATA_LAST_UPDATED):
             try:
                 del annotation[key]
             except KeyError:
                 pass
-        self.context.plone_utils.addPortalMessage(_(u'Twitter access deauthorized'))
-        self.request.response.redirect(self.context.absolute_url() + '/authorize-twitter')
+        self.context.plone_utils.addPortalMessage(_(u'Facebook access deauthorized'))
+        self.request.response.redirect(self.context.absolute_url() + '/authorize-facebook')
 
-    def twitter_info(self, force=False):
-        """ Return Twitter information associated with the current token """
+    def facebook_info(self, force=False):
+        """ Return Facebook information associated with the current token """
 
         annotation = IAnnotations(self.context)
         data = annotation.get(TWITTER_DATA)
@@ -67,7 +67,7 @@ class TwitterAuthentication(BrowserView):
             if (datetime.datetime.utcnow() - last_accessed).seconds < 15 * 60: # 15 minutes
                 return data
 
-        session = self.twitter_session
+        session = self.facebook_session
         try:
             data = session.verify_credentials()
         except TwythonAuthError:
@@ -78,17 +78,17 @@ class TwitterAuthentication(BrowserView):
         return data
 
     @property
-    def twitter_settings(self):
+    def facebook_settings(self):
         registry = getUtility(IRegistry)
-        return registry.forInterface(ITwitterSettings)
+        return registry.forInterface(IFacebookSettings)
 
     @property
-    def twitter_session(self):
-        settings = self.twitter_settings
+    def facebook_session(self):
+        settings = self.facebook_settings
         annotation = IAnnotations(self.context)
         return Twython(
-                settings.twitter_app_key, 
-                settings.twitter_app_secret, 
+                settings.facebook_app_key, 
+                settings.facebook_app_secret, 
                 annotation[TWITTER_TOKEN],
                 annotation[TWITTER_TOKEN_SECRET])
 
@@ -98,10 +98,10 @@ class TwitterAuthentication(BrowserView):
 
     def get_oauth_url(self):
 
-        settings = self.twitter_settings
-        twitter = Twython(settings.twitter_app_key, settings.twitter_app_secret)
-        callback_url = self.context.absolute_url() + '/authorize-twitter-action'
-        auth = twitter.get_authentication_tokens(callback_url=callback_url)
+        settings = self.facebook_settings
+        facebook = Twython(settings.facebook_app_key, settings.facebook_app_secret)
+        callback_url = self.context.absolute_url() + '/authorize-facebook-action'
+        auth = facebook.get_authentication_tokens(callback_url=callback_url)
         oauth_token = auth['oauth_token']
         oauth_token_secret = auth['oauth_token_secret']
         annotation = IAnnotations(self.context)
@@ -109,14 +109,14 @@ class TwitterAuthentication(BrowserView):
         annotation[TWITTER_TOKEN_SECRET] = oauth_token_secret
         return auth['auth_url']
 
-    def post_to_twitter(self, text):
+    def post_to_facebook(self, text):
 
-        twitter = self.twitter_session
+        facebook = self.facebook_session
         try:
-            twitter.update_status(status=text)
-            self.context.plone_utils.addPortalMessage(_(u'Post to Twitter successful'))
-            self.request.response.redirect(self.context.absolute_url() + '/authorize-twitter')
+            facebook.update_status(status=text)
+            self.context.plone_utils.addPortalMessage(_(u'Post to Facebook successful'))
+            self.request.response.redirect(self.context.absolute_url() + '/authorize-facebook')
         except TwythonError as e:
-            self.context.plone_utils.addPortalMessage(_(u'Post to Twitter failed - ' + str(e)), 'error')
-            self.request.response.redirect(self.context.absolute_url() + '/authorize-twitter?text={}'.format(text))
+            self.context.plone_utils.addPortalMessage(_(u'Post to Facebook failed - ' + str(e)), 'error')
+            self.request.response.redirect(self.context.absolute_url() + '/authorize-facebook?text={}'.format(text))
 
