@@ -19,11 +19,11 @@ class IFacebookSettings(Interface):
     """ Facebook settings """
 
     facebook_app_key = schema.TextLine(
-        title=_(u'Facebook consumer key'),
+        title=_(u'Facebook client/app key'),
         required=True
     )
 
     facebook_app_secret = schema.TextLine(
-        title=_(u'Facebook consumer secret'),
+        title=_(u'Facebook client/app secret'),
         required=True
     )
