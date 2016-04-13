@@ -19,15 +19,15 @@
         name="authorize-facebook"
         for="xmldirector.plonecore.connector.IConnector"
         permission="cmf.ModifyPortalContent"
-        class=".facebook_authentication.FacebookAuthentication"
-        template="facebook_authentication.pt"
+        class=".facebook.FacebookAuthentication"
+        template="facebook.pt"
         />
 
     <browser:page
         name="deauthorize-facebook"
         for="xmldirector.plonecore.connector.IConnector"
         permission="cmf.ModifyPortalContent"
-        class=".facebook_authentication.FacebookAuthentication"
+        class=".facebook.FacebookAuthentication"
         attribute="deauthorize"
         />                                              i
 
@@ -35,7 +35,7 @@
         name="authorize-facebook-action"
         for="xmldirector.plonecore.connector.IConnector"
         permission="cmf.ModifyPortalContent"
-        class=".facebook_authentication.FacebookAuthentication"
+        class=".facebook.FacebookAuthentication"
         attribute="authorize"
         />                                              i
 
@@ -43,7 +43,7 @@
         name="facebook-post"
         for="xmldirector.plonecore.connector.IConnector"
         permission="cmf.ModifyPortalContent"
-        class=".facebook_authentication.FacebookAuthentication"
+        class=".facebook.FacebookAuthentication"
         attribute="post_to_facebook"
         />                                              i
 

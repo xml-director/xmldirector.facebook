@@ -86,14 +86,15 @@ class FacebookAuthentication(BrowserView):
     def get_oauth_url(self):
 
         settings = self.facebook_settings
-        redirect_uri = '{}/authorize-facebook-action'.format(self.context.absolute_url())
+        redirect_uri = '{}/authorize-facebook-action/'.format(self.context.absolute_url())
         fb_url = 'https://graph.facebook.com/oauth/authorize'
         data = dict(
            type='user_agent',
            client_id=settings.facebook_app_key,
            redirect_uri=redirect_uri,
            scope='publish_pages,email',
-           response_type='code token',
+           response_type='code',
+           state='abc',
            code='abc'
         )
         f = furl.furl(fb_url)
