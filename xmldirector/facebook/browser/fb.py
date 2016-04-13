@@ -11,6 +11,8 @@ import datetime
 import urlparse
 import random
 
+import facebook
+
 from twython import Twython
 from twython import TwythonError
 from twython import TwythonAuthError
@@ -119,13 +121,9 @@ class FacebookAuthentication(BrowserView):
         return str(f)
 
     def post_to_facebook(self, text):
-
-        facebook = self.facebook_session
-        try:
-            facebook.update_status(status=text)
-            self.context.plone_utils.addPortalMessage(_(u'Post to Facebook successful'))
-            self.request.response.redirect(self.context.absolute_url() + '/authorize-facebook')
-        except TwythonError as e:
-            self.context.plone_utils.addPortalMessage(_(u'Post to Facebook failed - ' + str(e)), 'error')
-            self.request.response.redirect(self.context.absolute_url() + '/authorize-facebook?text={}'.format(text))
+        graph = facebook.GraphAPI(self.get_oauth_token())
+        profile = graph.get_object("me")
+        graph.put_object(parent_object="me", connection_name="feed", message="test")
+        self.context.plone_utils.addPortalMessage(_(u'Post to Facebook successful'))
+        self.request.response.redirect(self.context.absolute_url() + '/authorize-facebook')
 
