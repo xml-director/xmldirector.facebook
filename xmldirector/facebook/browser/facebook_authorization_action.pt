@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="xmldirector.facebook">
+<body>
+
+<metal:main fill-slot="content-core">
+    <metal:content-core define-macro="content-core">
+
+        <script type="text/javascript" tal:content="string: URL = '${context/absolute_url}'"></script>
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+
+                var hash = window.location.hash;
+                var qs = hash.substring(1, hash.length);
+                $.ajax({
+                    type: 'POST',
+                    url: URL + '/authorize-facebook-action2',
+                    data: {qs: qs},
+                    success: function() {
+                        window.location.href = URL + '/authorize-facebook?authorization_complete=1';
+                    },
+                    async: false
+                });
+
+            });
+
+        </script>
+
+    </metal:content-core>
+</metal:main>
+
+</body>
+</html>
+

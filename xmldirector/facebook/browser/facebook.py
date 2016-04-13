@@ -6,7 +6,10 @@
 ################################################################
 
 import furl
+import string
 import datetime 
+import urlparse
+import random
 
 from twython import Twython
 from twython import TwythonError
@@ -22,6 +25,11 @@ from xmldirector.facebook.i18n import MessageFactory as _
 
 
 FB_ACCESS_TOKEN = 'xmldirector.facebook.token'
+FB_LAST_UPDATED = 'xmldirector.facebook.last_update'
+
+
+def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
 
 
 class FacebookAuthentication(BrowserView):
@@ -33,10 +41,20 @@ class FacebookAuthentication(BrowserView):
         self.context.plone_utils.addPortalMessage(_(u'Facebook access authorized'))
         self.request.response.redirect(self.context.absolute_url() + '/authorize-facebook')
 
+    def authorize2(self):
+        qs = self.request['qs']
+        parts = urlparse.parse_qs(qs)
+        access_token = parts['access_token'][0]
+        annotation = IAnnotations(self.context)
+        annotation[FB_ACCESS_TOKEN] = access_token
+        annotation[FB_LAST_UPDATED] = datetime.datetime.utcnow()
+        self.context.plone_utils.addPortalMessage(_(u'Facebook access authorized'))
+        self.request.response.redirect(self.context.absolute_url() + '/authorize-facebook')
+
     def deauthorize(self):
         """ Deauthorize Facebook access """
         annotation = IAnnotations(self.context)
-        for key in (TWITTER_TOKEN, TWITTER_TOKEN_SECRET, TWITTER_DATA, TWITTER_DATA_LAST_UPDATED):
+        for key in (FB_ACCESS_TOKEN, FB_LAST_UPDATED):
             try:
                 del annotation[key]
             except KeyError:
@@ -94,12 +112,10 @@ class FacebookAuthentication(BrowserView):
            redirect_uri=redirect_uri,
            scope='publish_pages,email',
            response_type='code',
-           state='abc',
-           code='abc'
+           state=id_generator(128)
         )
         f = furl.furl(fb_url)
         f.args = data
-        print str(f)
         return str(f)
 
     def post_to_facebook(self, text):
