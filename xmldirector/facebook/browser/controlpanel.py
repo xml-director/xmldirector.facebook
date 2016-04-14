@@ -15,7 +15,7 @@ from xmldirector.facebook.i18n import MessageFactory as _
 class FacebookSettingsEditForm(controlpanel.RegistryEditForm):
 
     schema = IFacebookSettings
-    label = _(u'Facebook Policy settings')
+    label = _(u'XML Director - Facebook settings')
     description = _(u'')
 
     def updateFields(self):
