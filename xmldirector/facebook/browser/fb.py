@@ -7,16 +7,10 @@
 
 import requests
 import furl
-import string
 import datetime 
-import urlparse
-import random
 
 import facebook
 
-from twython import Twython
-from twython import TwythonError
-from twython import TwythonAuthError
 
 from zope.interface import alsoProvides
 from zope.component import getUtility
