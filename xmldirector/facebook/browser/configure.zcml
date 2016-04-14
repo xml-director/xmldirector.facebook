@@ -36,15 +36,7 @@
         for="xmldirector.plonecore.connector.IConnector"
         permission="cmf.ModifyPortalContent"
         class=".fb.FacebookAuthentication"
-        template="facebook_authorization_action.pt"
-        />                                              i
-
-    <browser:page
-        name="authorize-facebook-action2"
-        for="xmldirector.plonecore.connector.IConnector"
-        permission="cmf.ModifyPortalContent"
-        class=".fb.FacebookAuthentication"
-        attribute="authorize2"
+        attribute="authorize"
         />                                              i
 
     <browser:page
