@@ -12,12 +12,13 @@ import datetime
 import facebook
 
 
-from zope.interface import alsoProvides
 from zope.component import getUtility
+from zope.interface import alsoProvides
+from zope.annotation import IAnnotations
 from Products.Five.browser import BrowserView
 from plone.registry.interfaces import IRegistry
 from plone.protect.interfaces import IDisableCSRFProtection
-from zope.annotation import IAnnotations
+from plone.protect.interfaces import IDisableCSRFProtection
 
 from xmldirector.facebook.interfaces import IFacebookSettings
 from xmldirector.facebook.i18n import MessageFactory as _
@@ -28,6 +29,11 @@ FB_LAST_UPDATED = 'xmldirector.facebook.last_update'
 
 
 class FacebookAuthentication(BrowserView):
+
+    def __init__(self, context, request):
+        # fuck all Plone protection shit!
+        alsoProvides(request, IDisableCSRFProtection)
+        super(FacebookAuthentication, self).__init__(context, request)
 
     def get_oauth_url(self):
 

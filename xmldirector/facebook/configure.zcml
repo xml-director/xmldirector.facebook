@@ -17,8 +17,8 @@
 
     <genericsetup:registerProfile
         name="default"
-        title="xmldirector.facebook"
         directory="profiles/default"
+        title="XML Director integration with Facebook"
         description="XML Director integration with Facebook"
         provides="Products.GenericSetup.interfaces.EXTENSION"
     />
